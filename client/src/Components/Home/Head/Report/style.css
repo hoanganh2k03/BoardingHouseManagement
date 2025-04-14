@@ -1,0 +1,77 @@
+.MainReport {
+  min-height: 100vh; /* Đảm bảo phần tử rp chiếm toàn bộ chiều cao của viewport */
+  display: flex;
+  flex-direction: column;
+}
+.report-section {
+  margin-top: 20px;
+  padding-left: 20px; /* Tạo lề trái cho phần nội dung */
+}
+
+.report-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.report-section form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.report-section form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 17px;
+  margin: 20px 0;
+}
+
+.report-section form input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.report-section form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.report-section form button:hover {
+  background-color: #45a049;
+}
+
+.radio-options {
+  margin-bottom: 10px;
+}
+
+.radio-options label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.custom-issue {
+  margin-top: 10px;
+}
+
+.custom-issue label {
+  font-weight: bold;
+}
+
+.custom-issue input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

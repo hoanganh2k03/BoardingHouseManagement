@@ -1,0 +1,23 @@
+.pagination li {
+  font-size: 22px;
+  cursor: pointer;
+  color: black;
+  padding: 5px 10px;
+}
+
+.pagination li:hover {
+  background-color: #ccc;
+}
+/* .pagination li.active {
+  background-color: red;
+  color: white;
+} */
+.pagination ul li {
+  color: white;
+}
+.Page {
+  cursor: default;
+}
+.Page li:hover {
+  color: white;
+}

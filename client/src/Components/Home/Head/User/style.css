@@ -1,0 +1,106 @@
+/* style.css */
+.user {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.user img {
+  width: 100px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  right: 30px;
+  top: 30%;
+  transform: translateY(-50%);
+  overflow: auto;
+  border: none;
+  outline: none;
+  align-items: center;
+  border-radius: 10px;
+  height: auto;
+  text-align: left;
+  cursor: default;
+  border: 3px solid rgba(25, 210, 62, 1);
+}
+
+/* style.css */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+  flex-direction: column; /* Xếp theo chiều dọc */
+  weight: 200px;
+  text-align: left; /* Căn lề trái */
+}
+
+.modal a {
+  font-size: 18px;
+  text-decoration: none;
+  padding: 2px;
+  display: block; /* Hiển thị các liên kết dưới dạng khối */
+}
+
+.modal a:hover {
+  font-size: 18px;
+  text-decoration: none;
+  width: 100%;
+  color: #1266dd;
+  cursor: default;
+}
+
+.close {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: -150px;
+  margin-top: 0px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px; /* Đặt chiều cao để tránh tròn thành hình oval */
+  display: flex; /* Sử dụng flexbox để căn giữa */
+  align-items: center; /* Căn giữa theo chiều ngang */
+  justify-content: center; /* Căn giữa theo chiều dọc */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 7, 2, 0.7); /* Màu đen với độ mờ 50% */
+  z-index: 1;
+  display: none;
+}
+
+.Main.modal-active .overlay {
+  display: block; /* Hiển thị overlay khi modal active */
+  cursor: default;
+}
+
+/* Thêm phong cách cho nút đăng nhập */
+.login-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  text-decoration: none; /* Bỏ gạch chân */
+  background-color: white; /* Màu nền */
+  color: black; /* Màu chữ */
+  border: 1px solid black;
+  border-radius: 5px; /* Bo góc */
+  text-align: center; /* Căn giữa chữ */
+  margin: 10px 0;
+}
+
+.login-button:hover {
+  background-color: #e0e0e0; /* Màu nền khi hover */
+}
+.modal span:hover {
+  color: red;
+  background-color: black;
+  cursor: default;
+}

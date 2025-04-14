@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\Components",
+    "\\client\\src\\Components\\Home",
+    "\\client\\src\\Components\\Home\\Footer",
+    "\\client\\src\\Components\\User",
+    "\\client\\src\\Components\\User\\user_payment",
+    "\\server",
+    "\\server\\images"
+  ],
+  "SelectedNode": "\\client\\src\\Components\\Home\\Footer\\footer.js",
+  "PreviewInSolutionExplorer": false
+}

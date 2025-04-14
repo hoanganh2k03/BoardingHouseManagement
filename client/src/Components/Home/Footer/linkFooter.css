@@ -1,0 +1,78 @@
+.gioithieu-noidung p{
+	font-weight: lighter;
+}
+.body-tuyendung, .body-gioithieu {
+    padding: 20px; /* Khoảng cách lề cho phần body của form */
+    background-color: #f9f9f9; /* Màu nền cho phần body của form */
+}
+
+.tieude {
+	font-size: 24px;
+    color: #333; /* Màu chữ cho tiêu đề mỗi phần của form */
+	white-space: nowrap; /* Ngăn chữ trong tiêu đề bị xuống dòng */
+}
+
+.tuyendung-noidung {
+	font-weight: lighter;
+    
+	margin-bottom: 10px; /* Khoảng cách phía dưới của mỗi phần nội dung trong form */
+}
+
+.tuyendung-info, .gioithieu-info{
+    background-color: #fff; /* Màu nền cho phần thông tin trong form */
+    padding: 20px; /* Khoảng cách lề cho phần thông tin trong form */
+    border-radius: 5px; /* Đường viền cong cho phần thông tin trong form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ cho phần thông tin trong form */
+}
+
+/* Định dạng cho mỗi hàng trong phần nội dung của form */
+.tuyendung-noidung li, .gioithieu-noidung {
+    list-style-type: disc; /* Kiểu đánh dấu cho mỗi mục trong form */
+    margin-left: 20px; /* Khoảng cách lề bên trái cho mỗi mục trong form */
+}
+
+/* Định dạng cho email trong phần liên hệ của form */
+.tuyendung-noidung li b {
+    color: #007bff; /* Màu chữ cho email */
+}
+
+
+.price-list {
+	width: 90%;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+	padding: 20px;
+	background-color: #fff	;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	
+}
+
+.price-list__heading {
+	text-align: center;
+	color: #333;
+}
+
+.price-list__table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.price-list__table th,
+.price-list__table td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: center;
+}
+
+.price-list__table th {
+	background-color: #f0f0f0;
+}
+
+.price-list__note {
+	margin-top: 10px;
+	text-align: center;
+	font-style: italic;
+	color: #333;
+}
