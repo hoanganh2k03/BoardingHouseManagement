@@ -33,20 +33,20 @@ function Footer() {
             <ul className="footer__list">
               <li className="footer__item">
                 <a
-                  href="https://phongtro123.com/chinh-sach-bao-mat"
+                 href="/"
                   className="footer__item__link"
                 >
                   Chính sách bảo mật
                 </a>
               </li>
               <li className="footer__item">
-                <a href="https://phongtro123.com/quy-dinh-su-dung" className="footer__item__link">
+                <a href="/" className="footer__item__link">
                   Điều khoản sử dụng
                 </a>
               </li>
               <li className="footer__item">
                 <a
-                  href="https://phongtro123.com/quy-dinh-dang-tin"
+                  href="/"
                   className="footer__item__link"
                 >
                   Quy định đăng tin
@@ -64,19 +64,19 @@ function Footer() {
             <ul className="footer__list">
             <li className="footer__item">
                 <a
-                  href="https://mail.google.com/mail/u/0/#inbox?compose=new"
+                  href="/"
                   className="footer__item__link"
                 >
                   <ion-icon
                     className="footer__item__icon"
                     name="logo-email"
                   ></ion-icon>
-                  nguyenhieuxt23@gmail.com
+                  abc@gmail.com
                 </a>
               </li>
               <li className="footer__item">
                 <a
-                  href="https://www.facebook.com/nguyenhieuxt23"
+                 href="/"
                   className="footer__item__link"
                 >
                   <ion-icon
@@ -88,7 +88,7 @@ function Footer() {
               </li>
               <li className="footer__item">
                 <a
-                  href="https://www.instagram.com/hieu1tuoi_/"
+                  href="/"
                   className="footer__item__link"
                 >
                   <ion-icon
@@ -100,7 +100,7 @@ function Footer() {
               </li>
               <li className="footer__item">
                 <a
-                  href="https://www.tiktok.com/@hieu1tuoi_"
+                 href="/"
                   className="footer__item__link"
                 >
                   <ion-icon
@@ -117,9 +117,9 @@ function Footer() {
       <div className="footer__bottom">
         <div className="grid">
           <p>
-            Nhóm 20 
+            Nhóm 
           </p>
-          <p>Đề tài: Thiết kế phần mềm đăng bài thuê phòng trọ</p>
+          <p>Đề tài: Phát triển hệ thống phần mềm đăng bài thuê phòng trọ</p>
         </div>
       </div>
     </footer>

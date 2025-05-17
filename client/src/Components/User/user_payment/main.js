@@ -77,8 +77,8 @@ const PostTable = () => {
         </div>
         <div className="info">
           <h1>Thông tin thanh toán</h1>
-          <p>STK: 1047589631</p>
-          <p>Chủ tài khoản: NGUYEN QUANG HIEU</p>
+          <p>STK: 12345678</p>
+          <p>Chủ tài khoản: VU QUOC HOANG ANH</p>
           <p>Ngân hàng: Vietcombank</p>
           <p>Nội dung: Mã thanh toán</p>
           <p style={{color:"red"}}>Lưu ý: Nội dung là MÃ THANH TOÁN (không phải mã bài đăng) chính xác với thông tin thanh toán dưới đây.</p>
