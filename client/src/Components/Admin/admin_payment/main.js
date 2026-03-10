@@ -136,7 +136,7 @@ const PostTable = ({ history }) => {
     try {
       // Update payment state
       await axios.put(
-        `http://localhost:3000/api/update-paymentState/${payment.PAYID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/update-paymentState/${payment.PAYID}`,
         {
           state: "Thành công",
           ADMINEMAIL: adminEmail,
@@ -144,18 +144,18 @@ const PostTable = ({ history }) => {
       );
 
       // Update news state
-      await axios.post(`http://localhost:3000/api/update-newsState`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`, {
         newsid: payment.NEWSID,
         state: "Hoạt động",
       });
 
       // Update timestart timeend
-      await axios.post(`http://localhost:3000/api/update-news-detail`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/update-news-detail`, {
         newsid: payment.NEWSID,
       });
 
       // Create notification
-      await axios.post(`http://localhost:3000/api/create-notification`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-notification`, {
         newsid: payment.NEWSID,
         content: `Thanh toán có mã số ${payment.PAYID} đã hoàn tất. Bài đăng ${payment.NEWSID} đã được hiển thị.`,
         reason: "", // Không có lý do khi đồng ý
@@ -174,7 +174,7 @@ const PostTable = ({ history }) => {
     try {
       // Update payment state
       await axios.put(
-        `http://localhost:3000/api/update-paymentState/${payment.PAYID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/update-paymentState/${payment.PAYID}`,
         {
           state: "Không thành công",
           ADMINEMAIL: adminEmail,
@@ -182,13 +182,13 @@ const PostTable = ({ history }) => {
       );
 
       // Update news state
-      await axios.post(`http://localhost:3000/api/update-newsState`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`, {
         newsid: payment.NEWSID,
         state: "Bị từ chối",
       });
 
       // Create notification
-      await axios.post(`http://localhost:3000/api/create-notification`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-notification`, {
         newsid: payment.NEWSID,
         content: `Thanh toán có mã số ${payment.PAYID} đã bị từ chối.`,
         reason: reason, // Lý do từ chối
@@ -196,7 +196,7 @@ const PostTable = ({ history }) => {
       });
 
       // Create notification
-      await axios.post(`http://localhost:3000/api/create-notification`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-notification`, {
         newsid: payment.NEWSID,
         content: `Bài đăng ${payment.NEWSID} bị từ chối`,
         reason: `Thanh toán mã số ${payment.PAYID} không thành công`, // Lý do từ chối
@@ -215,7 +215,7 @@ const PostTable = ({ history }) => {
   const handleError = async (payment, errorInput) => {
     try {
       // Create notification
-      await axios.post(`http://localhost:3000/api/create-notification`, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-notification`, {
         newsid: payment.NEWSID,
         content: `Thanh toán có mã số ${payment.PAYID} bị lỗi: ${errorInput}`,
         reason: "", // Không có lý do khi thông báo lỗi
@@ -233,7 +233,7 @@ const PostTable = ({ history }) => {
   // Fetch payments
   const fetchPayments = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/payment");
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/payment`);
       setPayments(response.data);
       setOriginalPayments(response.data);
     } catch (error) {

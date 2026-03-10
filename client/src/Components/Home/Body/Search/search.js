@@ -12,7 +12,7 @@ function Search({ onSearch }) {
     // Fetch data from the API
     const fetchDistricts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/hcmdistrict");
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/hcmdistrict`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

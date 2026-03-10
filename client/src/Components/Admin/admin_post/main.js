@@ -21,7 +21,7 @@ const PostTable = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/get-posts");
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-posts`);
         const allPosts = response.data.results;
         const newPosts = allPosts.filter((post) => post.STATE === "Chờ duyệt");
         const filteredPosts = allPosts.filter(
@@ -69,7 +69,7 @@ const PostTable = () => {
     const adminEmail = JSON.parse(localStorage.getItem("user")).EMAIL; // Lấy adminEmail từ localStorages
     if (window.confirm(confirmMessage)) {
       axios
-        .post("http://localhost:3000/api/create-payment", {
+        .post(`${process.env.REACT_APP_BACKEND_URL}/api/create-payment`, {
           NEWSID: postId,
           POSTDURATION: postDuration,
           ADMINEMAIL: adminEmail, // adminEmail
@@ -92,14 +92,14 @@ const PostTable = () => {
     switch (action) {
       case "reject":
       case "approve":
-        url = `http://localhost:3000/api/update-newsState`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
         data = {
           newsid: postId,
           state: action === "approve" ? "Chờ thanh toán" : "Bị từ chối",
         };
         break;
       case "delete":
-        url = `http://localhost:3000/api/update-newsState`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
         data = { newsid: postId, state: "Đã xóa" };
         break;
       default:
@@ -133,7 +133,7 @@ const PostTable = () => {
 
           axios
             .post(
-              "http://localhost:3000/api/create-notification",
+              `${process.env.REACT_APP_BACKEND_URL}/api/create-notification`,
               notificationData
             )
             .then((response) => {

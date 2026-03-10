@@ -58,7 +58,7 @@ const RegistrationForm = () => {
       setErrors({});
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/signup",
+          `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
           formData
         );
         if (response.status === 201) {

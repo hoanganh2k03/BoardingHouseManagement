@@ -21,11 +21,11 @@ function Main() {
       setRole(user.ROLE);
       if (user.ROLE === 1) {
         axios
-          .get(`http://localhost:3000/api/get-adminId-byEmail/${user.EMAIL}`)
+          .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-adminId-byEmail/${user.EMAIL}`)
           .then((response) => {
             const adminId = response.data.ADMINID;
             axios
-              .get(`http://localhost:3000/api/get-adminInfo-byId/${adminId}`)
+              .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-adminInfo-byId/${adminId}`)
               .then((response) => {
                 setUserName(response.data.NAME);
               })
@@ -38,11 +38,11 @@ function Main() {
           });
       } else {
         axios
-          .get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`)
+          .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`)
           .then((response) => {
             const userId = response.data.USERID;
             axios
-              .get(`http://localhost:3000/api/user-info/${userId}`)
+              .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/${userId}`)
               .then((response) => {
                 setUserName(response.data.NAME);
               })

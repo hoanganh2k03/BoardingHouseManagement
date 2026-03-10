@@ -12,7 +12,7 @@ function Main() {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.EMAIL) {
       axios
-        .get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`)
         .then((response) => {
           const userId = response.data.USERID;
           fetchNotifications(userId);
@@ -33,7 +33,7 @@ function Main() {
 
   const fetchNotifications = (userId) => {
     axios
-      .get(`http://localhost:3000/api/get-notification-byUserID/${userId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-notification-byUserID/${userId}`)
       .then((response) => {
         setNotifications(response.data);
       })
@@ -59,7 +59,7 @@ function Main() {
 
   const handleNotificationClick = (notificationId) => {
     axios
-      .put(`http://localhost:3000/api/update-notificationSeen/${notificationId}`)
+      .put(`${process.env.REACT_APP_BACKEND_URL}/api/update-notificationSeen/${notificationId}`)
       .then((response) => {
         // Update the SEEN status locally
         const updatedNotifications = notifications.map((notification) => {

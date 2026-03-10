@@ -14,7 +14,7 @@ const Main = () => {
     const fetchPostUserId = async () => {
       try {
         const newsId = localStorage.getItem("newsID");
-        const response = await axios.get(`http://localhost:3000/api/get-post-byNewsId/${newsId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-post-byNewsId/${newsId}`);
         setPostUserId(response.data.USERID);
       } catch (error) {
         console.error("Error fetching post user ID:", error);
@@ -45,11 +45,11 @@ const Main = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`);
       const userId = response.data.USERID;
 //      console.log("UserId của người tạo report: ", userId);
 
-      const checkReportResponse = await axios.get(`http://localhost:3000/api/check-report-yet/${userId}/${newsId}`);
+      const checkReportResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/check-report-yet/${userId}/${newsId}`);
 //      console.log("Dữ liệu từ check report yet: ", checkReportResponse.data);
       if (checkReportResponse.data.reported) {
         alert("Bạn đã báo cáo bài viết này.");
@@ -63,7 +63,7 @@ const Main = () => {
       };
 //      console.log("Dữ liệu tạo báo cáo: ", reportData)
 
-      await axios.post("http://localhost:3000/api/create-report", reportData);
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-report`, reportData);
       alert("Báo cáo đã được gửi thành công.");
 
       // Tạo thông báo cho người dùng với nội dung phù hợp
@@ -76,7 +76,7 @@ const Main = () => {
 //      console.log("UserID của người bị báo cáo: ", postUserId);
 //      console.log("nội dung tạo thông báo: ", notificationData);
 
-      await axios.post("http://localhost:3000/api/create-notification", notificationData);
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/create-notification`, notificationData);
 
       // Sau khi hoàn thành, chuyển hướng về trang bài viết và xóa newsID từ localStorage
       window.location.href = "/";

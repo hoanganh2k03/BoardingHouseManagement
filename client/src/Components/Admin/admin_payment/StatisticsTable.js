@@ -26,7 +26,7 @@ const StatisticsTable = () => {
   // Fetch statistics
   const fetchStatistics = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/payment-statistics");
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/payment-statistics`);
       const sortedStatistics = response.data.statistics.sort((a, b) => {
         // Sort in descending order based on year and month
         return b.year - a.year || b.month - a.month;

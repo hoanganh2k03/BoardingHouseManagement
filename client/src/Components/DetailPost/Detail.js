@@ -122,7 +122,7 @@ function Detail() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/detail/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/detail/${id}`);
       setDetailData(response.data);
     } catch (error) {
       console.error('Error fetching detail data:', error);
@@ -131,7 +131,7 @@ function Detail() {
 
   const fetchImages = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/images/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/images/${id}`);
       setImages(response.data.images);
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -145,7 +145,7 @@ function Detail() {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/api/upload`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -193,7 +193,7 @@ function Detail() {
               {images.map((image, index) => (
                 <div key={index} className={index === currentSlide ? 'slide active' : 'slide'} style={{ display: index === currentSlide ? 'block' : 'none' }}>
                   <img
-                    src={`http://localhost:3000/uploads/${image}`}
+                    src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${image}`}
                     alt={`Image ${index + 1}`}
                     style={{ width: '600px', height: '450px', marginBottom: '10px', borderRadius: '10px', overflow: 'auto' }}
                   />

@@ -17,7 +17,7 @@ function Main() {
 
   const fetchReportList = () => {
     axios
-      .get("http://localhost:3000/api/get-reportList")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-reportList`)
       .then((response) => {
         setReportList(response.data);
       })
@@ -41,7 +41,7 @@ function Main() {
 
   const handleReportClick = (reportId) => {
     axios
-      .put(`http://localhost:3000/api/update-reportSeen/${reportId}`)
+      .put(`${process.env.REACT_APP_BACKEND_URL}/api/update-reportSeen/${reportId}`)
       .then((response) => {
         // Update the SEEN status locally
         const updatedReportList = sortedReportList.map((report) => {

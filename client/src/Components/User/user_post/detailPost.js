@@ -37,7 +37,7 @@ function Detail() {
     try {
       // Gọi API để lấy dữ liệu chi tiết
       const response = await axios.get(
-        `http://localhost:3000/api/detail/${id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/detail/${id}`
       );
       setDetailData(response.data); // Lưu dữ liệu vào state
     } catch (error) {

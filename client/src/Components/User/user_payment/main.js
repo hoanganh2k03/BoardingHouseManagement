@@ -14,16 +14,16 @@ const PostTable = () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user && user.EMAIL) {
-          const userIdResponse = await axios.get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`);
+          const userIdResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`);
           const USERID = userIdResponse.data.USERID;
-          const postsResponse = await axios.get(`http://localhost:3000/api/get-posts-byUserid/${USERID}`);
+          const postsResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-posts-byUserid/${USERID}`);
 
           const promises = postsResponse.data.map(async (post) => {
-            const paymentResponse = await axios.get(`http://localhost:3000/api/get-payment-byNewsid/${post.NEWSID}`);
+            const paymentResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-payment-byNewsid/${post.NEWSID}`);
             if (paymentResponse.data.length > 0) {
               const adminId = paymentResponse.data[0].ADMINID;
               try {
-                const adminInfoResponse = await axios.get(`http://localhost:3000/api/get-adminInfo-byId/${adminId}`);
+                const adminInfoResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-adminInfo-byId/${adminId}`);
                 const adminName = adminInfoResponse.data.NAME;
                 // paymentResponse.data[0].adminName = adminName;
                 paymentResponse.data.forEach(payment => payment.adminName = adminName);
@@ -51,7 +51,7 @@ const PostTable = () => {
           setPaymentSummary({ total: totalAmount, count: flatPayments.length });
 
           // Đặt URL của ảnh QR code
-          setQrCodeUrl("http://localhost:3000/api/get-qrThanhToan");
+          setQrCodeUrl(`${process.env.REACT_APP_BACKEND_URL}/api/get-qrThanhToan`);
         }
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);

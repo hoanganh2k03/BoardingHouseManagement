@@ -19,7 +19,7 @@ function Main() {
 
   const fetchAdminData = (email) => {
     axios
-      .get(`http://localhost:3000/api/admin-info/${email}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/admin-info/${email}`)
       .then((response) => {
         setUserData(response.data);
       })
@@ -41,7 +41,7 @@ function Main() {
       "Nhân viên không có quyền chỉnh sửa thông tin. Vui lòng liên hệ với chủ sở hũu!"
     );
     // axios
-    //   .put(`http://localhost:3000/api/admin-info/${editingUser.ADMINID}`, editingUser)
+    //   .put(`${process.env.REACT_APP_BACKEND_URL}/api/admin-info/${editingUser.ADMINID}`, editingUser)
     //   .then(() => {
     //     fetchAdminData(adminInfo.email);
     //     cancelEdit();

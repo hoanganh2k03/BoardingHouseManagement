@@ -31,7 +31,7 @@ const User = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.EMAIL) {
       axios
-        .get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`)
         .then((response) => {
           const userId = response.data.USERID;
           fetchNotifications(userId);
@@ -62,7 +62,7 @@ const User = () => {
 
   const fetchNotifications = (userId) => {
     axios
-      .get(`http://localhost:3000/api/get-notification-byUserID/${userId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-notification-byUserID/${userId}`)
       .then((response) => {
         const notifications = response.data;
         const sortedNotifications = notifications.sort((a, b) => parseISO(b.TIME) - parseISO(a.TIME)).slice(0, 15);

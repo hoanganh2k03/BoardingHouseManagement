@@ -11,7 +11,7 @@ function Main() {
     const user = JSON.parse(localStorage.getItem("user")); // Lấy đối tượng user từ localStorage
     if (user && user.EMAIL) {
       axios
-        .get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`)
         .then((response) => {
           const userId = response.data.USERID;
           fetchData(userId);
@@ -24,7 +24,7 @@ function Main() {
 
   const fetchData = (userId) => {
     axios
-      .get(`http://localhost:3000/api/user-info/${userId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/${userId}`)
       .then((response) => {
         // Gói dữ liệu trong một mảng
         setUserData([response.data]);
@@ -80,7 +80,7 @@ function Main() {
     // Gửi dữ liệu chỉnh sửa lên server
     axios
       .put(
-        `http://localhost:3000/api/update-userinfo/${editingUser.USERID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/update-userinfo/${editingUser.USERID}`,
         editedUser
       )
       .then(() => {

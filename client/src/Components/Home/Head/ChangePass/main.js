@@ -69,7 +69,7 @@ const Main = () => {
           setStep(2);
         } else if (step === 2) {
           const user = JSON.parse(localStorage.getItem("user"));
-          const response = await axios.post("http://localhost:3000/api/update-password", {
+          const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/update-password`, {
             email: user.EMAIL,
             newPassword: formData.newPassword,
           });

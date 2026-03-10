@@ -17,7 +17,7 @@ function Main() {
 
   const fetchUserIds = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/get-list-userID");
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-list-userID`);
       const userIds = response.data;
       fetchUserData(userIds);
     } catch (error) {
@@ -28,7 +28,7 @@ function Main() {
   const fetchUserData = async (userIds) => {
     try {
       const userPromises = userIds.map((user) => 
-        axios.get(`http://localhost:3000/api/user-info/${user.USERID}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/${user.USERID}`)
       );
       const users = await Promise.all(userPromises);
       const usersData = users.map(user => user.data);
@@ -49,7 +49,7 @@ function Main() {
 
     if (window.confirm(confirmMessage)) {
       axios
-        .put(`http://localhost:3000/api/update-user-state`, { EMAIL: user.EMAIL, STATUS: newStatus })
+        .put(`${process.env.REACT_APP_BACKEND_URL}/api/update-user-state`, { EMAIL: user.EMAIL, STATUS: newStatus })
         .then(() => {
           // Cập nhật lại state userData sau khi chỉnh sửa
           fetchUserIds();

@@ -37,7 +37,7 @@ const ImageDes = () => {
 
   const fetchData = async () => {
     try {
-      let url = "http://localhost:3000/api/get-posts";
+      let url = `${process.env.REACT_APP_BACKEND_URL}/api/get-posts`;
       const params = {
         district:
           selectedDistrict && selectedDistrict !== "all" ? selectedDistrict : undefined,
@@ -51,7 +51,7 @@ const ImageDes = () => {
 //      console.log(params.acreage);
       // Construct URL based on selected filters
       if (params.district || params.price || params.acreage) {
-        url = `http://localhost:3000/api/search-posts?district=${params.district}&price=${params.price}&acreage=${params.acreage}`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/search-posts?district=${params.district}&price=${params.price}&acreage=${params.acreage}`;
       }
 //      console.log(url)
       const response = await axios.get(url);
@@ -60,7 +60,7 @@ const ImageDes = () => {
       const currentTime = moment();
       for (let post of posts) {
         if (moment(post.TIMEEND).isBefore(currentTime) && post.STATE !== "Hết hạn") {
-          await axios.get(`http://localhost:3000/api/newState-Post/${post.NEWSID}`);
+          await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/newState-Post/${post.NEWSID}`);
         }
       }
   
@@ -213,7 +213,7 @@ const ImageDes = () => {
               }}
             >
               <img
-                src={`http://localhost:3000/uploads/${item.image}`}
+                src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${item.image}`}
                 style={{
                   width: "600px",
                   justifyContent: "center",

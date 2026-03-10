@@ -59,7 +59,7 @@ const Main = () => {
         if (step === 1) {
           // Kiểm tra tài khoản và mật khẩu mới
           const response = await axios.get(
-            `http://localhost:3000/api/get-userid-byEmail/${formData.email}`
+            `${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${formData.email}`
           );
           if (response.data && response.data.USERID) {
             setStep(2); // Chuyển sang bước 2
@@ -69,7 +69,7 @@ const Main = () => {
         } else if (step === 2) {
           // Xác nhận mã OTP và cập nhật mật khẩu mới
           const response = await axios.post(
-            "http://localhost:3000/api/update-password",
+            `${process.env.REACT_APP_BACKEND_URL}/api/update-password`,
             {
               email: formData.email,
               newPassword: formData.newPassword,

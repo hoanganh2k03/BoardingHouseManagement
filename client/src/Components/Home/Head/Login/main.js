@@ -40,7 +40,7 @@ const Main = () => {
     try {
       // Gửi yêu cầu POST đến API /api/login với thông tin đăng nhập từ formData
       const response = await axios.post(
-        "http://localhost:3000/api/login",
+        `${process.env.REACT_APP_BACKEND_URL}/api/login`,
         formData
       );
       // Nếu đăng nhập thành công, chuyển hướng đến trang admin hoặc user tùy thuộc vào vai trò của người dùng

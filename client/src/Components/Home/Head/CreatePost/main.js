@@ -46,7 +46,7 @@ function PostForm() {
     // Fetch userId based on email
     async function fetchUserIdByEmail(email) {
       try {
-        const response = await axios.get(`http://localhost:3000/api/get-userid-byEmail/${email}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${email}`);
      //  console.log("here:", response); 
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -61,7 +61,7 @@ function PostForm() {
     // Fetch districts from the database
     async function fetchDistricts() {
       try {
-        const response = await axios.get("http://localhost:3000/api/hcmdistrict"); // API for districts
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/hcmdistrict`); // API for districts
         setDistricts(response.data);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -71,7 +71,7 @@ function PostForm() {
     // Fetch price list from API
     async function fetchPriceList() {
       try {
-        const response = await axios.get("http://localhost:3000/api/get-pricelist"); // API endpoint
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-pricelist`); // API endpoint
         setPriceList(response.data);
       } catch (error) {
         console.error("Error fetching price list:", error);
@@ -109,7 +109,7 @@ function PostForm() {
       });
 
       const response = await axios.post(
-        "http://localhost:3000/api/create-post",
+        `${process.env.REACT_APP_BACKEND_URL}/api/create-post`,
         formDataToSend,
         {
           headers: {

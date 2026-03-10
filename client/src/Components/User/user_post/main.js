@@ -17,7 +17,7 @@ const PostTable = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.EMAIL) {
       axios
-        .get(`http://localhost:3000/api/get-userid-byEmail/${user.EMAIL}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-userid-byEmail/${user.EMAIL}`)
         .then((response) => {
           const userId = response.data.USERID;
           fetchPosts(userId);
@@ -35,7 +35,7 @@ const PostTable = () => {
 
   const fetchPosts = (userId) => {
     axios
-      .get(`http://localhost:3000/api/get-posts-byUserid/${userId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/get-posts-byUserid/${userId}`)
       .then((response) => {
         const allPosts = response.data;
         const newPosts = allPosts.filter((post) => post.STATE !== "Đã xóa");
@@ -108,23 +108,23 @@ const PostTable = () => {
 
     switch (action) {
       case "hide":
-        url = `http://localhost:3000/api/update-newsState`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
         data = { newsid: postId, state: "Đã ẩn" };
         break;
       case "unhide":
-        url = `http://localhost:3000/api/update-newsState`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
         data = { newsid: postId, state: "Hoạt động" };
         break;
       // case "edit":
-      //   url = `http://localhost:3000/api/update-newsState`;
+      //   url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
       //   data = { newsid: postId, state: "Đã chỉnh sửa" };
       //   break;
       case "delete":
-        url = `http://localhost:3000/api/update-newsState`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-newsState`;
         data = { newsid: postId, state: "Đã xóa" };
         break;
       case "reset":
-        url = `http://localhost:3000/api/update-resetPost`;
+        url = `${process.env.REACT_APP_BACKEND_URL}/api/update-resetPost`;
         data = { newsid: postId, state: "Chờ duyệt", postduration: userInput };
         break;
       default:

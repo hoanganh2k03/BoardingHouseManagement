@@ -24,7 +24,7 @@ const EditPostForm = ({ postId, isOpen, onRequestClose }) => {
     // Fetch post details to populate the form
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/get-post-details/${postId}`); // Thay đổi đường dẫn API theo cấu trúc của bạn
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-post-details/${postId}`); // Thay đổi đường dẫn API theo cấu trúc của bạn
         const postData = response.data;
 //        console.log("ở đây nè:", postData.specificaddress);
         setFormData({
@@ -47,7 +47,7 @@ const EditPostForm = ({ postId, isOpen, onRequestClose }) => {
     // Fetch list of districts
     async function fetchDistricts() {
       try {
-        const response = await axios.get("http://localhost:3000/api/hcmdistrict");
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/hcmdistrict`);
         setDistricts(response.data);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -55,7 +55,7 @@ const EditPostForm = ({ postId, isOpen, onRequestClose }) => {
     }
     async function fetchPriceList() {
       try {
-        const response = await axios.get("http://localhost:3000/api/get-pricelist"); // API endpoint
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/get-pricelist`); // API endpoint
         setPriceList(response.data);
       } catch (error) {
         console.error("Error fetching price list:", error);
@@ -88,7 +88,7 @@ const EditPostForm = ({ postId, isOpen, onRequestClose }) => {
         formDataToSend.append("images", image);
       });
 
-      const response = await axios.put(`http://localhost:3000/api/update-post/${postId}`, 
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/update-post/${postId}`, 
         formDataToSend,
         {
           headers: {
