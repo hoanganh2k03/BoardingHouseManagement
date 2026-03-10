@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const { check, validationResult } = require("express-validator");
 const multer = require("multer");
 const path = require("path");
@@ -19,7 +19,7 @@ app.use("/uploads", express.static("uploads"));
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root", // Thay username bằng tên người dùng của bạn
-  password: "", // Thay password bằng mật khẩu của bạn
+  password: "123456", // Thay password bằng mật khẩu của bạn
   database: "WEBDANGBAI", // Thay database_name bằng tên cơ sở dữ liệu của bạn
 });
 
@@ -91,7 +91,7 @@ app.post("/api/create-post", upload.array("images", 20), (req, res) => {
 
     // Lấy IDDISTRICT từ database tương ứng với option người dùng chọn
     const getDistrictQuery =
-      "SELECT IDDISTRICT FROM hcmdistrict WHERE DISTRICT = ?";
+      "SELECT IDDISTRICT FROM HCMDISTRICT WHERE DISTRICT = ?";
     connection.query(getDistrictQuery, [district], (error, districtResults) => {
       if (error) {
         console.error("Error querying district:", error);
@@ -110,7 +110,7 @@ app.post("/api/create-post", upload.array("images", 20), (req, res) => {
 
       // Insert post details into newslist table
       const insertNewslistQuery =
-        "INSERT INTO newslist (USERID, title, acreage, price, address, state, postduration) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO NEWSLIST (USERID, TITLE, ACREAGE, PRICE, ADDRESS, STATE, POSTDURATION) VALUES (?, ?, ?, ?, ?, ?, ?)";
       connection.query(
         insertNewslistQuery,
         [userid, title, acreage, price, IDDISTRICT, state, postDuration],
@@ -126,7 +126,7 @@ app.post("/api/create-post", upload.array("images", 20), (req, res) => {
 
           // Insert post details into newsdetail table
           const insertNewsdetailQuery =
-            "INSERT INTO newsdetail (newsid, specificaddress, `describe` ) VALUES (?, ?, ?)";
+            "INSERT INTO NEWSDETAIL (NEWSID, SPECIFICADDRESS, `DESCRIBE` ) VALUES (?, ?, ?)";
           connection.query(
             insertNewsdetailQuery,
             [newslistId, address, describe],
@@ -161,7 +161,7 @@ app.post("/api/create-post", upload.array("images", 20), (req, res) => {
               } else {
                 // Images uploaded, insert them into the database
                 const insertImageQuery =
-                  "INSERT INTO image (newsid, image) VALUES (?, ?)";
+                  "INSERT INTO IMAGE (NEWSID, IMAGE) VALUES (?, ?)";
                 const promises = images.map((image) => {
                   const imageUrl = image.filename;
                   return new Promise((resolve, reject) => {
@@ -232,7 +232,7 @@ app.put("/api/update-post/:postId", upload.array("images", 20), (req, res) => {
 
     // lấy IDDISTRICT từ database tương ứng với option người dùng chọn
     const getDistrictQuery =
-      "SELECT IDDISTRICT FROM hcmdistrict WHERE DISTRICT = ?";
+      "SELECT IDDISTRICT FROM HCMDISTRICT WHERE DISTRICT = ?";
     connection.query(getDistrictQuery, [district], (error, districtResults) => {
       if (error) {
         console.error("Error querying district:", error);
@@ -252,7 +252,7 @@ app.put("/api/update-post/:postId", upload.array("images", 20), (req, res) => {
 
       // Update post details in newslist table
       const updateNewslistQuery =
-        "UPDATE newslist SET title=?, acreage=?, price=?,address=? WHERE newsid=?";
+        "UPDATE NEWSLIST SET TITLE=?, ACREAGE=?, PRICE=?, ADDRESS=? WHERE NEWSID=?";
       connection.query(
         updateNewslistQuery,
         [title, acreage, price, IDDISTRICT, postId],
@@ -266,7 +266,7 @@ app.put("/api/update-post/:postId", upload.array("images", 20), (req, res) => {
 
           // Update post details in newsdetail table
           const updateNewsdetailQuery =
-            "UPDATE newsdetail SET specificaddress=?, `describe`=? WHERE newsid=?";
+            "UPDATE NEWSDETAIL SET SPECIFICADDRESS=?, `DESCRIBE`=? WHERE NEWSID=?";
           connection.query(
             updateNewsdetailQuery,
             [address, describe, postId],
@@ -296,7 +296,7 @@ app.put("/api/update-post/:postId", upload.array("images", 20), (req, res) => {
                   });
                 });
               } else {
-                const deleteImageQuery = "DELETE FROM image WHERE NEWSID = ?";
+                const deleteImageQuery = "DELETE FROM IMAGE WHERE NEWSID = ?";
                 connection.query(deleteImageQuery, [postId], (error, results) => {
                   if (error) {
                     console.error("Error deleting image:", error);
@@ -306,7 +306,7 @@ app.put("/api/update-post/:postId", upload.array("images", 20), (req, res) => {
                 }
                 // Images uploaded, insert them into the database
                 const insertImageQuery =
-                  "INSERT INTO image (newsid, image) VALUES (?, ?)";
+                  "INSERT INTO IMAGE (NEWSID, IMAGE) VALUES (?, ?)";
                 const promises = images.map((image) => {
                   const imageUrl = image.filename;
                   return new Promise((resolve, reject) => {
@@ -452,7 +452,7 @@ app.get('/api/newState-Post/:newsId', async (req, res) => {
 
 app.get("/api/images/:newsid", (req, res) => {
   const newsid = req.params.newsid;
-  const query = "SELECT IMAGE FROM image WHERE NEWSID = ?";
+  const query = "SELECT IMAGE FROM IMAGE WHERE NEWSID = ?";
 
   connection.query(query, [newsid], (error, results) => {
     if (error) {
@@ -474,7 +474,7 @@ app.post("/api/upload", upload.array("images", 10), async (req, res) => {
   try {
     // Use a promise-based approach to handle database insertions
     const insertPromises = images.map((image) => {
-      const insertQuery = "INSERT INTO image (NEWID, IMAGE) VALUES (?, ?)";
+      const insertQuery = "INSERT INTO IMAGE (NEWID, IMAGE) VALUES (?, ?)";
       return new Promise((resolve, reject) => {
         connection.query(
           insertQuery,
@@ -518,7 +518,7 @@ app.post("/api/login", (req, res) => {
     return res.status(400).json({ message: "Missing email or password" });
   }
 
-  const query = "SELECT * FROM account WHERE email = ? AND password = ?";
+  const query = "SELECT * FROM ACCOUNT WHERE EMAIL = ? AND PASSWORD = ?";
   connection.query(query, [email, password], (error, results) => {
     // Xử lý kết quả trạng thái hoạt động
     if (error) {
@@ -545,7 +545,7 @@ app.post("/api/update-password", async (req, res) => {
 
   try {
     /// Update mật khẩu mới trong cơ sở dữ liệu
-    await connection.query("UPDATE account SET password = ? WHERE email = ?", [
+    await connection.query("UPDATE ACCOUNT SET PASSWORD = ? WHERE EMAIL = ?", [
       newPassword,
       email,
     ]);
@@ -560,7 +560,7 @@ app.post("/api/update-password", async (req, res) => {
 
 // API lấy thông tin bảng giá
 app.get("/api/get-pricelist", (req, res) => {
-  const sql = "SELECT * FROM pricelist";
+  const sql = "SELECT * FROM PRICELIST";
   connection.query(sql, (err, results) => {
     if (err) {
       console.error("Error fetching price list:", err);
@@ -619,7 +619,7 @@ app.post("/api/update-resetPost", (req, res) => {
 });
 //
 app.get("/api/hcmdistrict", (req, res) => {
-  const sql = "SELECT * FROM hcmdistrict";
+  const sql = "SELECT * FROM HCMDISTRICT";
   connection.query(sql, (err, result) => {
     if (err) {
       throw err;
@@ -1195,7 +1195,7 @@ app.post("/api/signup", (req, res) => {
   try {
     // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay không
     connection.query(
-      "SELECT * FROM account WHERE email = ?",
+      "SELECT * FROM ACCOUNT WHERE EMAIL = ?",
       [email],
       (error, results) => {
         if (error) {
@@ -1210,7 +1210,7 @@ app.post("/api/signup", (req, res) => {
         // Nếu email không tồn tại, tiến hành tạo tài khoản mới.
         // Insert new user into the database
         connection.query(
-          "INSERT INTO account (email, state, password, role) VALUES (?, ?, ?, ?)",
+          "INSERT INTO ACCOUNT (EMAIL, STATE, PASSWORD, ROLE) VALUES (?, ?, ?, ?)",
           [email, "Hoạt động", password, 2],
           (error, results) => {
             if (error) {
@@ -1220,7 +1220,7 @@ app.post("/api/signup", (req, res) => {
 
             // Insert user information into the userinfo table
             connection.query(
-              "INSERT INTO userinfo (name, phone, email) VALUES (?, ?, ?)",
+              "INSERT INTO USERINFO (NAME, PHONE, EMAIL) VALUES (?, ?, ?)",
               [username, phone, email],
               (error, results) => {
                 if (error) {
@@ -1250,7 +1250,7 @@ app.post("/api/forgot-password", async (req, res) => {
     const { username, email, password } = req.body;
     // Kiểm tra xem email và tên người dùng có tồn tại trong cơ sở dữ liệu hay không
     const existingUser = await connection.query(
-      "SELECT * FROM userinfo WHERE name = ? AND email = ?",
+      "SELECT * FROM USERINFO WHERE NAME = ? AND EMAIL = ?",
       [username, email]
     );
 
@@ -1260,7 +1260,7 @@ app.post("/api/forgot-password", async (req, res) => {
     }
 
     // Update mật khẩu mới trong cơ sở dữ liệu
-    await connection.query("UPDATE account SET password = ? WHERE email = ?", [
+    await connection.query("UPDATE ACCOUNT SET PASSWORD = ? WHERE EMAIL = ?", [
       password,
       email,
     ]);
@@ -1279,38 +1279,33 @@ app.get("/api/detail/:id", (req, res) => {
   // Thực hiện truy vấn SELECT để lấy chi tiết của bài đăng với id tương ứng từ cả ba bảng newslist, newsdetail, và userinfo
   const selectQuery = `
     SELECT 
-      newslist.userid,
-      newslist.newsid,
-      newslist.title,
-      newsdetail.describe,
-      newslist.price,
-      newslist.acreage,
-      newslist.address,
-      hcmdistrict.district,
-      newsdetail.specificaddress,
-      image.image,
-      newslist.price,
-      newslist.acreage,
-      newslist.address,
-      newsdetail.describe,
-      newsdetail.timestart,
-      newsdetail.timeend,
-      userinfo.phone,
-      userinfo.name,
-      userinfo.avatar,
-      image.image
+      NEWSLIST.USERID AS userid,
+      NEWSLIST.NEWSID AS newsid,
+      NEWSLIST.TITLE AS title,
+      NEWSDETAIL.\`DESCRIBE\` AS \`describe\`,
+      NEWSLIST.PRICE AS price,
+      NEWSLIST.ACREAGE AS acreage,
+      NEWSLIST.ADDRESS AS address,
+      HCMDISTRICT.DISTRICT AS district,
+      NEWSDETAIL.SPECIFICADDRESS AS specificAddress,
+      IMAGE.IMAGE AS image,
+      NEWSDETAIL.TIMESTART AS timeStart,
+      NEWSDETAIL.TIMEEND AS timeEnd,
+      USERINFO.PHONE AS phone,
+      USERINFO.NAME AS name,
+      USERINFO.AVATAR AS avatar
     FROM 
-      newslist
+      NEWSLIST
     LEFT JOIN 
-      newsdetail ON newslist.newsid = newsdetail.newsid
+      NEWSDETAIL ON NEWSLIST.NEWSID = NEWSDETAIL.NEWSID
     LEFT JOIN 
-      userinfo ON newslist.userid = userinfo.userid
+      USERINFO ON NEWSLIST.USERID = USERINFO.USERID
     LEFT JOIN 
-      hcmdistrict ON newslist.address = hcmdistrict.iddistrict
+      HCMDISTRICT ON NEWSLIST.ADDRESS = HCMDISTRICT.IDDISTRICT
     LEFT JOIN 
-      image ON newslist.newsid = image.newsid
+      IMAGE ON NEWSLIST.NEWSID = IMAGE.NEWSID
     WHERE
-      newslist.newsid = ?
+      NEWSLIST.NEWSID = ?
   `;
 
   connection.query(selectQuery, [postId], (error, results) => {
@@ -1335,14 +1330,14 @@ app.get("/api/search", (req, res) => {
 
   // Query to search for posts by district
   const searchQuery = `
-    SELECT * FROM newslist
-    WHERE location = ?
+    SELECT * FROM NEWSLIST
+    WHERE LOCATION = ?
   `;
 
   // Query to count the total number of posts by district
   const countQuery = `
-    SELECT COUNT(*) AS total FROM newslist
-    WHERE location = ?
+    SELECT COUNT(*) AS total FROM NEWSLIST
+    WHERE LOCATION = ?
   `;
 
   // Execute the search query
@@ -1390,7 +1385,7 @@ app.get('/api/get-adminId-byEmail/:email', (req, res) => {
 // API lấy thông tin quản trị viên theo email
 app.get("/api/admin-info/:email", (req, res) => {
   const email = req.params.email;
-  const query = "SELECT * FROM admininfo WHERE EMAIL = ?";
+  const query = "SELECT * FROM ADMININFO WHERE EMAIL = ?";
 
   connection.query(query, [email], (err, results) => {
     if (err) {
@@ -1405,8 +1400,7 @@ app.get("/api/admin-info/:email", (req, res) => {
 // API lấy thông tin quản trị viên bằng id
 app.get("/api/get-adminInfo-byId/:adminId", (req, res) => {
   const adminId = req.params.adminId; // Đổi từ req.params.id thành req.params.adminId để lấy đúng adminId
-  const query = "SELECT * FROM admininfo WHERE ADMINID = ?";
-
+  const query = "SELECT * FROM ADMININFO WHERE ADMINID = ?";
   connection.query(query, [adminId], (err, results) => {
     if (err) {
       console.error("Error fetching admin data:", err);
@@ -1428,7 +1422,7 @@ app.get("/api/get-adminInfo-byId/:adminId", (req, res) => {
 
 // API lấy danh sách userID
 app.get("/api/get-list-userID", (req, res) => {
-  const userIdsQuery = "SELECT USERID FROM userinfo";
+  const userIdsQuery = "SELECT USERID FROM USERINFO";
 
   connection.query(userIdsQuery, (err, results) => {
     if (err) {
@@ -1468,7 +1462,7 @@ app.get("/api/user-info/:userid", (req, res) => {
   const userId = req.params.userid;
 
   // Truy vấn đầu tiên để lấy thông tin người dùng
-  const userQuery = "SELECT * FROM userinfo WHERE USERID = ?";
+  const userQuery = "SELECT * FROM USERINFO WHERE USERID = ?";
 
   connection.query(userQuery, [userId], (err, userResults) => {
     if (err) {
@@ -1486,7 +1480,7 @@ app.get("/api/user-info/:userid", (req, res) => {
 
     // Truy vấn thứ hai để đếm số lượng bài đăng của người dùng
     const newsCountQuery =
-      "SELECT COUNT(*) AS NEWSCOUNT FROM newslist WHERE USERID = ?";
+      "SELECT COUNT(*) AS NEWSCOUNT FROM NEWSLIST WHERE USERID = ?";
 
     connection.query(newsCountQuery, [userId], (err, newsCountResults) => {
       if (err) {
@@ -1499,7 +1493,7 @@ app.get("/api/user-info/:userid", (req, res) => {
 
       // Truy vấn thứ ba để lấy trạng thái từ bảng account sử dụng email
       const email = user.EMAIL;
-      const statusQuery = "SELECT state FROM account WHERE email = ?";
+      const statusQuery = "SELECT STATE FROM ACCOUNT WHERE EMAIL = ?";
 
       connection.query(statusQuery, [email], (err, statusResults) => {
         if (err) {
@@ -1551,7 +1545,7 @@ app.put("/api/update-user-state", (req, res) => {
   const email = req.body.EMAIL;
   const newStatus = req.body.STATUS;
 
-  const updateQuery = "UPDATE account SET state = ? WHERE email = ?";
+  const updateQuery = "UPDATE ACCOUNT SET STATE = ? WHERE EMAIL = ?";
 
   connection.query(updateQuery, [newStatus, email], (err, results) => {
     if (err) {
@@ -1627,7 +1621,7 @@ app.post("/api/create-payment", (req, res) => {
 
 // API to fetch all payments with user and admin info
 app.get("/api/payment", async (req, res) => {
-  const query = "SELECT * FROM payment";
+  const query = "SELECT * FROM PAYMENT";
   try {
     connection.query(query, async (err, results) => {
       if (err) {
@@ -1647,7 +1641,7 @@ app.get("/api/payment", async (req, res) => {
         .filter((newsId) => newsId != null);
 
       // Fetching admin names from admininfo table
-      const adminInfoQuery = `SELECT ADMINID, NAME FROM admininfo WHERE ADMINID IN (${adminIds.join(
+      const adminInfoQuery = `SELECT ADMINID, NAME FROM ADMININFO WHERE ADMINID IN (${adminIds.join(
         ","
       )})`;
       const admins = await new Promise((resolve, reject) => {
@@ -1662,7 +1656,7 @@ app.get("/api/payment", async (req, res) => {
       });
 
       // Fetching userIds from newslist table based on newsIds
-      const userIdQuery = `SELECT NEWSID, USERID FROM newslist WHERE NEWSID IN (${newsIds.join(
+      const userIdQuery = `SELECT NEWSID, USERID FROM NEWSLIST WHERE NEWSID IN (${newsIds.join(
         ","
       )})`;
       const users = await new Promise((resolve, reject) => {
@@ -1680,7 +1674,7 @@ app.get("/api/payment", async (req, res) => {
       const userIds = users.map((user) => user.USERID);
 
       // Fetching user names from userinfo table based on userIds
-      const userInfoQuery = `SELECT USERID, NAME FROM userinfo WHERE USERID IN (${userIds.join(
+      const userInfoQuery = `SELECT USERID, NAME FROM USERINFO WHERE USERID IN (${userIds.join(
         ","
       )})`;
       const userNames = await new Promise((resolve, reject) => {
@@ -1776,7 +1770,7 @@ app.get('/api/payment-statistics', (req, res) => {
 // API to fetch payment by paymentId
 app.get("/api/payment/:paymentId", (req, res) => {
   const paymentId = req.params.paymentId;
-  const query = "SELECT * FROM payment WHERE paymentId = ?";
+  const query = "SELECT * FROM PAYMENT WHERE PAYMENTID = ?";
   connection.query(query, [paymentId], (err, results) => {
     if (err) {
       console.error("Error fetching payment:", err);
@@ -1797,7 +1791,7 @@ const query = util.promisify(connection.query).bind(connection);
 // API lấy thông tin thanh toán dựa trên NEWSID
 app.get("/api/get-payment-byNewsid/:newsid", (req, res) => {
   const { newsid } = req.params;
-  const sql = `SELECT * FROM payment WHERE NEWSID = ?`;
+  const sql = `SELECT * FROM PAYMENT WHERE NEWSID = ?`;
 
   connection.query(sql, [newsid], (err, result) => {
     if (err) {
@@ -1817,7 +1811,7 @@ app.put("/api/update-paymentState/:PAYID", async (req, res) => {
 
   try {
     // Query to get ADMINID from admininfo table using ADMINEMAIL
-    const adminIdQuery = `SELECT ADMINID FROM admininfo WHERE EMAIL = ?`;
+    const adminIdQuery = `SELECT ADMINID FROM ADMININFO WHERE EMAIL = ?`;
 
     const row = await query(adminIdQuery, [ADMINEMAIL]);
 
@@ -1838,7 +1832,7 @@ app.put("/api/update-paymentState/:PAYID", async (req, res) => {
 
     // Update payment table with STATE, ADMINID, and TIME
     const updateQuery = `
-      UPDATE payment
+      UPDATE PAYMENT
       SET STATE = ?, ADMINID = ?, TIME = ?
       WHERE PAYID = ?
     `;
@@ -1940,7 +1934,7 @@ app.get('/api/check-report-yet/:userId/:newsId', (req, res) => {
   const userId = req.params.userId;
   const newsId = req.params.newsId;
   
-  const sql = 'SELECT COUNT(*) AS count FROM report WHERE USERID = ? AND NEWSID = ?';
+  const sql = 'SELECT COUNT(*) AS count FROM REPORT WHERE USERID = ? AND NEWSID = ?';
   const values = [userId, newsId];
   
   connection.query(sql, values, (err, results) => {
@@ -1959,7 +1953,7 @@ app.get('/api/check-report-yet/:userId/:newsId', (req, res) => {
 app.post('/api/create-report', (req, res) => {
   const { USERID, NEWSID, ISSUE } = req.body;
   
-  const sql = 'INSERT INTO report (USERID, NEWSID, CONTENT) VALUES (?, ?, ?)';
+  const sql = 'INSERT INTO REPORT (USERID, NEWSID, CONTENT) VALUES (?, ?, ?)';
   const values = [USERID, NEWSID, ISSUE];
   
   connection.query(sql, values, (err, results) => {

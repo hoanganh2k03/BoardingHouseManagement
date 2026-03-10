@@ -24,81 +24,30 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/detail" element={<DetailPostUser />} />
-      </Routes>
-      <Routes>
         <Route path="/changepassword" element={<ChangePassWord />} />
-      </Routes>
-      <Routes>
         <Route path="/admin" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/user" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/admin/info" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/admin/user" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/admin/post" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/admin/payment" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/admin/report" element={<Admin />} />
-      </Routes>
-      <Routes>
         <Route path="/user/info" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/user/user" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/user/post" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/user/notification" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/user/payment" element={<User />} />
-      </Routes>
-      <Routes>
         <Route path="/detail/:id" element={<Detail />} />
-      </Routes>
-      <Routes>
         <Route path="/detail/admin/:id" element={<DetailPostAdmin />} />
-      </Routes>
-      <Routes>
         <Route path="/createpost" element={<CreatePost />} />
-      </Routes>
-
-      <Routes>
         <Route path="/" element={<Home />} />
-      </Routes>
-      <Routes>
         <Route path="/login" element={<MainLogin />} />
-      </Routes>
-      <Routes>
         <Route path="/report" element={<Report />} />
-      </Routes>
-      <Routes>
         <Route path="/signup" element={<MainSignup />} />
-      </Routes>
-      <Routes>
         <Route path="/forgot" element={<MainForgot />} />
-      </Routes>
-      <Routes>
         <Route path="/recruitment" element={<Recruitment />} />
-      </Routes>
-      <Routes>
         <Route path="/introduce" element={<Introduce />} />
-      </Routes>
-      <Routes>
         <Route path="/priceList" element={<PriceList />} />
-      </Routes>
-      <Routes>
         <Route path="/statistics" element={<StatisticsTable />} />
       </Routes>
       <Footer />

@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="Home">
-      <Link style={{ textDecoration: "none" }} to="/">
-        <Head />
-        <Body />
-      </Link>
+      {/* Avoid wrapping Head and Body in a link to prevent nested <a> elements */}
+      <Head />
+      <Body />
     </div>
   );
 }

@@ -47,7 +47,7 @@ function PostForm() {
     async function fetchUserIdByEmail(email) {
       try {
         const response = await axios.get(`http://localhost:3000/api/get-userid-byEmail/${email}`);
-//        console.log("here:", response); 
+     //  console.log("here:", response); 
         setFormData((prevFormData) => ({
           ...prevFormData,
           userId: response.data.USERID,
@@ -94,7 +94,9 @@ function PostForm() {
       const formDataToSend = new FormData();
       formDataToSend.append("userid", formData.userId);
       formDataToSend.append("title", formData.title);
-      formDataToSend.append("postDuration", formData.postDuration);
+      // Extract the number from "15 ngày - 330,000 VND" format
+      const duration = formData.postDuration.match(/^(\d+)/)?.[1] || formData.postDuration;
+      formDataToSend.append("postDuration", duration);
       formDataToSend.append("describe", formData.describe);
       formDataToSend.append("price", formData.price);
       formDataToSend.append("acreage", formData.acreage);

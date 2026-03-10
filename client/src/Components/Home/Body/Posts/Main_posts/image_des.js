@@ -66,6 +66,7 @@ const ImageDes = () => {
   
       // Re-fetch posts after updating states
       const updatedResponse = await axios.get(url);
+      console.log(updatedResponse.data.results);
       let filteredData = updatedResponse.data.results.filter(
         (post) => post.STATE === "Hoạt động"
       );
